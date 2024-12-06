@@ -1,0 +1,762 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.iglesia.confirmaciones;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
+public class gui_Confirma_Frame extends javax.swing.JFrame {
+
+    /**
+     * Creates new form gui_Confirma_Frame
+     */
+    public gui_Confirma_Frame() {
+        initComponents();
+        llena_combo();
+        
+        tf_lugar_naci.setText("Guayaquil");
+        setea_Fecha_actual(tf_fecha_naci);
+        setea_Fecha_actual(tf_fecha_confirma);
+        
+        this.setLocationRelativeTo(null);
+    }
+
+    public boolean valida_datos(){    
+      if ( tf_nombre_confirmado.getText().isEmpty() ||
+              //|| tf_nombre_padrino.getText().isEmpty() || tf_nombre_madrina.getText().isEmpty() || 
+           tf_lugar_naci.getText().isEmpty() || tf_fecha_naci.getText().isEmpty() || tf_lugar_bautizo.getText().isEmpty() ||
+           tf_ministro.getText().isEmpty()  || tf_fecha_confirma.getText().isEmpty() 
+              )
+          return false;
+      else 
+          return true;
+    }
+    public void limpiar_datos(){
+      tf_nombre_confirmado.setText(""); tf_nombre_papa.setText(""); tf_nombre_mama.setText("");
+      tf_nombre_padrino.setText(""); tf_nombre_madrina.setText(""); 
+      tf_lugar_bautizo.setText(""); tf_ministro.setText(""); 
+
+      setea_Fecha_actual(tf_fecha_naci);
+      setea_Fecha_actual(tf_fecha_confirma);
+      tf_lugar_naci.setText("Guayaquil");
+           
+      tf_rp_libro.setText(""); 
+      tf_rp_pagina.setText(""); 
+      tf_rp_numero.setText("");
+      tfnovedades.setText("");
+    }
+    public void setea_Fecha_actual(JTextField campo){ 
+         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+         campo.setText( dtf.format( LocalDateTime.now() ) );
+    }
+    public void llena_combo(){
+      Connection cnt = null;    
+      Statement stm = null;
+      ResultSet rs = null;
+      try
+        {    
+            cnt = obtiene_conexion();
+            stm = cnt.createStatement();
+            String sql = "select * from opciones_autoridades";
+            rs = stm.executeQuery(sql);
+            while ( rs.next() ){
+              String str =  rs.getString("nom_opc_autoridad");
+              lis_autoridad.removeAll();
+              lis_autoridad.addItem(str);
+            }
+      
+        }
+        catch(SQLException e) {
+                //System.out.println("error tipo SQLException " + e.getMessage() );
+                JOptionPane.showMessageDialog(null, "Error SQLException en funcion llena_combo " + e.getMessage());
+        }
+        catch(Exception e){
+                //System.out.println("error tipo Exception " + e.getMessage() );
+                JOptionPane.showMessageDialog(null, "Error Exception en funcion llena_combo " + e.getMessage());
+        } 
+        finally{
+                try {   if (cnt != null)   cnt.close();  
+                        if (stm != null)   stm.close();
+                        if (rs != null)    rs.close(); }
+                catch(SQLException sq){
+                    //System.out.println("En Finally cerrando conexion en funcion llena_combo" + sq.getMessage() );
+                    JOptionPane.showMessageDialog(null, "En Finally, en funcion llena_combo " + sq.getMessage() );
+                }
+        }
+    }
+    public Connection obtiene_conexion(){
+        Connection con= null;
+        try {
+            String url = "jdbc:MySQL://localhost:3306/sacramentos";         //db is the name of the database
+            String user = "root";
+            String password = "";
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            //System.out.println("error tipo A ");
+            con = (Connection) DriverManager.getConnection(url,user,password);
+        }            
+        catch(SQLException e) {
+                System.out.println("error tipo SQLException " + e.getMessage() );
+                JOptionPane.showMessageDialog(null, "Error SqlExeption en Obtiene Conexion " + e.getMessage());
+            }
+        catch(Exception e){
+                System.out.println("error tipo Exception " + e.getMessage() );
+                JOptionPane.showMessageDialog(null, "Error Exception en Obtiene Conexion" + e.getMessage() );
+            } 
+        return con;
+    }    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        lab3 = new javax.swing.JLabel();
+        tf_fecha_naci = new javax.swing.JTextField();
+        lab4 = new javax.swing.JLabel();
+        lab5 = new javax.swing.JLabel();
+        lab6 = new javax.swing.JLabel();
+        lab7 = new javax.swing.JLabel();
+        lab8 = new javax.swing.JLabel();
+        tf_nombre_madrina = new javax.swing.JTextField();
+        lab9 = new javax.swing.JLabel();
+        tf_lugar_naci = new javax.swing.JTextField();
+        lab10 = new javax.swing.JLabel();
+        tf_ministro = new javax.swing.JTextField();
+        lab11 = new javax.swing.JLabel();
+        tf_lugar_bautizo = new javax.swing.JTextField();
+        lab12 = new javax.swing.JLabel();
+        tf_fecha_confirma = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        tf_nombre_confirmado = new javax.swing.JTextField();
+        tf_nombre_papa = new javax.swing.JTextField();
+        tf_nombre_mama = new javax.swing.JTextField();
+        tf_nombre_padrino = new javax.swing.JTextField();
+        lab13 = new javax.swing.JLabel();
+        lab14 = new javax.swing.JLabel();
+        lab15 = new javax.swing.JLabel();
+        lab16 = new javax.swing.JLabel();
+        tf_rp_libro = new javax.swing.JTextField();
+        tf_rp_pagina = new javax.swing.JTextField();
+        tf_rp_numero = new javax.swing.JTextField();
+        lis_autoridad = new javax.swing.JComboBox<>();
+        lab17 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tfnovedades = new javax.swing.JTextArea();
+
+        setTitle("Ingreso de Confirmados");
+        setPreferredSize(new java.awt.Dimension(800, 700));
+        setSize(new java.awt.Dimension(800, 700));
+
+        lab3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab3.setForeground(new java.awt.Color(0, 0, 204));
+        lab3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab3.setText("Fecha Nacimiento");
+
+        tf_fecha_naci.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tf_fecha_naci.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_fecha_naciActionPerformed(evt);
+            }
+        });
+        tf_fecha_naci.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tf_fecha_naciKeyReleased(evt);
+            }
+        });
+
+        lab4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab4.setForeground(new java.awt.Color(0, 0, 204));
+        lab4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab4.setText("Nombre Confirmado");
+
+        lab5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab5.setForeground(new java.awt.Color(0, 0, 204));
+        lab5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab5.setText("Nombre y Apellido Papa");
+
+        lab6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab6.setForeground(new java.awt.Color(0, 0, 204));
+        lab6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab6.setText("Nombre y Apellido Mama");
+
+        lab7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab7.setForeground(new java.awt.Color(0, 0, 204));
+        lab7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab7.setText("Nombre Padrino");
+
+        lab8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab8.setForeground(new java.awt.Color(0, 0, 204));
+        lab8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab8.setText("Nombre Madrina");
+
+        tf_nombre_madrina.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tf_nombre_madrina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_nombre_madrinaActionPerformed(evt);
+            }
+        });
+
+        lab9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab9.setForeground(new java.awt.Color(0, 0, 204));
+        lab9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab9.setText("Lugar Natal");
+
+        tf_lugar_naci.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tf_lugar_naci.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_lugar_naciActionPerformed(evt);
+            }
+        });
+
+        lab10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab10.setForeground(new java.awt.Color(0, 0, 204));
+        lab10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab10.setText("Ministro Confirmación");
+
+        tf_ministro.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tf_ministro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_ministroActionPerformed(evt);
+            }
+        });
+
+        lab11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab11.setForeground(new java.awt.Color(0, 0, 204));
+        lab11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab11.setText("Lugar e Iglesia Bautizo");
+
+        tf_lugar_bautizo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tf_lugar_bautizo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_lugar_bautizoActionPerformed(evt);
+            }
+        });
+
+        lab12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab12.setForeground(new java.awt.Color(0, 0, 204));
+        lab12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab12.setText("Fecha Confirmación");
+
+        tf_fecha_confirma.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tf_fecha_confirma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_fecha_confirmaActionPerformed(evt);
+            }
+        });
+        tf_fecha_confirma.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tf_fecha_confirmaKeyReleased(evt);
+            }
+        });
+
+        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 0, 255));
+        jButton3.setText("Ingresar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 0, 255));
+        jButton4.setText("Cancelar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(0, 0, 255));
+        jButton5.setText("Salir");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        tf_nombre_confirmado.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tf_nombre_confirmado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_nombre_confirmadoActionPerformed(evt);
+            }
+        });
+
+        tf_nombre_papa.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tf_nombre_papa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_nombre_papaActionPerformed(evt);
+            }
+        });
+
+        tf_nombre_mama.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tf_nombre_mama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_nombre_mamaActionPerformed(evt);
+            }
+        });
+
+        tf_nombre_padrino.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        tf_nombre_padrino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_nombre_padrinoActionPerformed(evt);
+            }
+        });
+
+        lab13.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab13.setForeground(new java.awt.Color(0, 0, 204));
+        lab13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab13.setText("Registro Parroquial");
+
+        lab14.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab14.setForeground(new java.awt.Color(0, 0, 204));
+        lab14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab14.setText("Libro");
+
+        lab15.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab15.setForeground(new java.awt.Color(0, 0, 204));
+        lab15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab15.setText("Numero");
+
+        lab16.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab16.setForeground(new java.awt.Color(0, 0, 204));
+        lab16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab16.setText("Pagina");
+
+        tf_rp_libro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_rp_libroActionPerformed(evt);
+            }
+        });
+
+        tf_rp_pagina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_rp_paginaActionPerformed(evt);
+            }
+        });
+
+        tf_rp_numero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_rp_numeroActionPerformed(evt);
+            }
+        });
+
+        lis_autoridad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lis_autoridadActionPerformed(evt);
+            }
+        });
+
+        lab17.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lab17.setForeground(new java.awt.Color(0, 0, 204));
+        lab17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lab17.setText("Novedades");
+
+        tfnovedades.setColumns(20);
+        tfnovedades.setRows(5);
+        tfnovedades.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfnovedadesFocusLost(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tfnovedades);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lab12, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lab10, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tf_fecha_confirma, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tf_ministro, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lis_autoridad, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(213, 213, 213))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lab9, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(lab7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lab8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(lab11, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                        .addComponent(lab3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(tf_fecha_naci, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+                                    .addComponent(tf_lugar_naci, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tf_nombre_madrina, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tf_nombre_padrino, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tf_nombre_mama, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tf_nombre_papa, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tf_nombre_confirmado, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tf_lugar_bautizo)))
+                            .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lab17, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1))
+                        .addGap(202, 202, 202))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lab6)
+                            .addComponent(lab13, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(121, 121, 121)
+                                .addComponent(lab14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tf_rp_libro, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(lab16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tf_rp_pagina, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lab15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tf_rp_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab4)
+                    .addComponent(tf_nombre_confirmado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab5)
+                    .addComponent(tf_nombre_papa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab6)
+                    .addComponent(tf_nombre_mama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_nombre_padrino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lab7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab8)
+                    .addComponent(tf_nombre_madrina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab9)
+                    .addComponent(tf_lugar_naci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab3)
+                    .addComponent(tf_fecha_naci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab11)
+                    .addComponent(tf_lugar_bautizo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lab10)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_ministro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lis_autoridad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_fecha_confirma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lab12))))
+                .addGap(18, 18, 18)
+                .addComponent(lab13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab14)
+                    .addComponent(lab16)
+                    .addComponent(lab15)
+                    .addComponent(tf_rp_libro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_rp_pagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_rp_numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lab17)
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                .addGap(240, 240, 240))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void tf_fecha_naciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_fecha_naciActionPerformed
+        tf_lugar_bautizo.requestFocusInWindow();
+    }//GEN-LAST:event_tf_fecha_naciActionPerformed
+
+    private void tf_nombre_madrinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_nombre_madrinaActionPerformed
+        tf_lugar_naci.requestFocusInWindow();
+    }//GEN-LAST:event_tf_nombre_madrinaActionPerformed
+
+    private void tf_lugar_naciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_lugar_naciActionPerformed
+        tf_fecha_naci.requestFocusInWindow();
+    }//GEN-LAST:event_tf_lugar_naciActionPerformed
+
+    private void tf_lugar_bautizoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_lugar_bautizoActionPerformed
+        tf_ministro.requestFocusInWindow();
+    }//GEN-LAST:event_tf_lugar_bautizoActionPerformed
+
+    private void tf_fecha_confirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_fecha_confirmaActionPerformed
+        tf_rp_libro.requestFocusInWindow();
+    }//GEN-LAST:event_tf_fecha_confirmaActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        String arst[] = new String[14];
+        arst[0]  = tf_nombre_confirmado.getText(); 
+        arst[1]  = tf_nombre_papa.getText();
+        arst[2]  = tf_nombre_mama.getText(); 
+        arst[3]  = tf_nombre_padrino.getText();
+        arst[4]  = tf_nombre_madrina.getText();
+        arst[5]  = tf_lugar_naci.getText();  
+        arst[6]  = tf_fecha_naci.getText(); 
+        arst[7]  = tf_lugar_bautizo.getText();
+        arst[8]  = tf_ministro.getText(); 
+        arst[9]  = tf_fecha_confirma.getText();
+        arst[10] = tf_rp_libro.getText();
+        arst[11] = tf_rp_pagina.getText();
+        arst[12] = tf_rp_numero.getText();
+        arst[13] = tfnovedades.getText();
+        
+        Connection conn = null;
+        Statement stmt = null;
+        
+        boolean bo = valida_datos();
+        if (!bo)  {
+            JOptionPane.showMessageDialog(null, "Ustede debe llenar todos los datos Obligatorios ");
+            return ; }
+
+        try
+        {
+            //System.out.println("error tipo A ");
+            conn = obtiene_conexion();
+            stmt = conn.createStatement();
+
+            // Campo Fecha Nacimiento
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date d_fecha = formatter.parse(arst[6]);
+            java.sql.Date fecha_nacimiento = new java.sql.Date(d_fecha.getTime());
+
+            d_fecha = formatter.parse(arst[9]);
+            java.sql.Date fecha_confirmacion = new java.sql.Date(d_fecha.getTime());
+            
+            String sql = " insert into confirmaciones "
+            +    " (nombre_confirmado, nombre_papa, nombre_mama,"
+            +    " nombre_padrino, nombre_madrina, "
+            +    " lugar_nacimiento, fecha_nacimiento, lugar_bautizo, "
+            +    " nombre_ministro, fecha_confirmacion, rp_libro, rp_pagina, rp_numero, novedades)"
+            +    " values ( '"  + arst[0] + "', '" + arst[1] + "', '" + arst[2] + "', '" + arst[3] + "', '"
+            +                     arst[4] + "', '" + arst[5] + "', '" + fecha_nacimiento + "', '" + arst[7] + "', '" 
+            +                     arst[8] + "', '" + fecha_confirmacion + "', '" 
+            +                     arst[10] + "', '" + arst[11] + "', '" + arst[12] + "', '" + arst[13]  + "') ";
+            System.out.println("sql " + sql);
+            stmt.executeUpdate(sql);
+            System.out.println("Insert completo.");
+            JOptionPane.showMessageDialog(null, "Se realizo la insercion de datos correctamente");
+            limpiar_datos();
+
+        }
+        catch(SQLException e) {
+            System.out.println("error SQLException " + e.getMessage() );
+            JOptionPane.showMessageDialog(null, "Error SQLException al insertar datos " + e.getMessage() );
+        }
+        catch(Exception e){
+            System.out.println("error Exception " + e.getMessage() );
+            JOptionPane.showMessageDialog(null, "Error Exception al insertar datos " + e.getMessage());
+        }
+        finally {
+            try {
+                if (conn != null)  conn.close();
+                if (stmt != null)  stmt.close();
+             }
+            catch(SQLException sq){
+                System.out.println("En Finally error SQLException " + sq.getMessage() );
+                JOptionPane.showMessageDialog(null, "En Finally, cerrando conexion al insertar datos " + sq.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        limpiar_datos();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void tf_fecha_naciKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_fecha_naciKeyReleased
+        if (tf_fecha_naci.getText().length() > 10) {
+               tf_fecha_naci.setText("");
+               setea_Fecha_actual(tf_fecha_naci);
+        }
+    }//GEN-LAST:event_tf_fecha_naciKeyReleased
+
+    private void tf_fecha_confirmaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_fecha_confirmaKeyReleased
+        if (tf_fecha_confirma.getText().length() > 10) {
+               tf_fecha_confirma.setText("");
+               setea_Fecha_actual(tf_fecha_confirma);
+        }
+    }//GEN-LAST:event_tf_fecha_confirmaKeyReleased
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        //System.exit(0);
+       this.setVisible(false);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void tf_nombre_confirmadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_nombre_confirmadoActionPerformed
+        tf_nombre_papa.requestFocusInWindow();
+    }//GEN-LAST:event_tf_nombre_confirmadoActionPerformed
+
+    private void tf_nombre_papaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_nombre_papaActionPerformed
+        tf_nombre_mama.requestFocusInWindow();
+    }//GEN-LAST:event_tf_nombre_papaActionPerformed
+
+    private void tf_nombre_mamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_nombre_mamaActionPerformed
+        tf_nombre_padrino.requestFocusInWindow();
+    }//GEN-LAST:event_tf_nombre_mamaActionPerformed
+
+    private void tf_nombre_padrinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_nombre_padrinoActionPerformed
+        tf_nombre_madrina.requestFocusInWindow();        
+    }//GEN-LAST:event_tf_nombre_padrinoActionPerformed
+
+    private void tf_rp_paginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_rp_paginaActionPerformed
+        tf_rp_numero.requestFocusInWindow();
+    }//GEN-LAST:event_tf_rp_paginaActionPerformed
+
+    private void tf_rp_numeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_rp_numeroActionPerformed
+          tfnovedades.requestFocusInWindow();
+    }//GEN-LAST:event_tf_rp_numeroActionPerformed
+
+    private void tf_rp_libroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_rp_libroActionPerformed
+        tf_rp_pagina.requestFocusInWindow();
+    }//GEN-LAST:event_tf_rp_libroActionPerformed
+
+    private void tf_ministroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_ministroActionPerformed
+        tf_fecha_confirma.requestFocusInWindow();
+    }//GEN-LAST:event_tf_ministroActionPerformed
+
+    private void lis_autoridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lis_autoridadActionPerformed
+
+        String ini = lis_autoridad.getSelectedItem().toString();
+        tf_ministro.setText(ini);
+    }//GEN-LAST:event_lis_autoridadActionPerformed
+
+    private void tfnovedadesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfnovedadesFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfnovedadesFocusLost
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(gui_Confirma_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(gui_Confirma_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(gui_Confirma_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(gui_Confirma_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new gui_Confirma_Frame().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lab10;
+    private javax.swing.JLabel lab11;
+    private javax.swing.JLabel lab12;
+    private javax.swing.JLabel lab13;
+    private javax.swing.JLabel lab14;
+    private javax.swing.JLabel lab15;
+    private javax.swing.JLabel lab16;
+    private javax.swing.JLabel lab17;
+    private javax.swing.JLabel lab3;
+    private javax.swing.JLabel lab4;
+    private javax.swing.JLabel lab5;
+    private javax.swing.JLabel lab6;
+    private javax.swing.JLabel lab7;
+    private javax.swing.JLabel lab8;
+    private javax.swing.JLabel lab9;
+    private javax.swing.JComboBox<String> lis_autoridad;
+    private javax.swing.JTextField tf_fecha_confirma;
+    private javax.swing.JTextField tf_fecha_naci;
+    private javax.swing.JTextField tf_lugar_bautizo;
+    private javax.swing.JTextField tf_lugar_naci;
+    private javax.swing.JTextField tf_ministro;
+    private javax.swing.JTextField tf_nombre_confirmado;
+    private javax.swing.JTextField tf_nombre_madrina;
+    private javax.swing.JTextField tf_nombre_mama;
+    private javax.swing.JTextField tf_nombre_padrino;
+    private javax.swing.JTextField tf_nombre_papa;
+    private javax.swing.JTextField tf_rp_libro;
+    private javax.swing.JTextField tf_rp_numero;
+    private javax.swing.JTextField tf_rp_pagina;
+    private javax.swing.JTextArea tfnovedades;
+    // End of variables declaration//GEN-END:variables
+}
