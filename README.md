@@ -7,6 +7,7 @@ Este proyecto es una aplicación desarrollada en **Java** que permite la **gesti
 - Registro de bautizos, confirmaciones y matrimonios.
 - Consulta de registros existentes mediante filtros.
 - Modificación de datos registrados.
+- Visualización de Repositorios de datos.
 - Automatización de tareas que anteriormente eran realizadas de forma manual.
 
 ## Tecnologías utilizadas
