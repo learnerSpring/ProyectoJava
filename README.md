@@ -1,4 +1,3 @@
-
 # ⛪ Sistema de Gestión Parroquial (Sacramentos)
 
 
@@ -44,6 +43,21 @@ El código fuente implementa una separación clara de responsabilidades para fav
 * `com.iglesia.funciones`: Encargada del despacho de conexiones a la base de datos.
 
 ---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
