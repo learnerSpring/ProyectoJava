@@ -334,7 +334,7 @@ public class gui_Visualiza_Datos extends javax.swing.JFrame {
         Connection con= null;
         try {
             String url = "jdbc:MySQL://localhost:3306/sacramentos";         //db is the name of the database
-            String user = "root";
+            String user = "";
             String password = "";
             Class.forName("com.mysql.cj.jdbc.Driver");
             //System.out.println("error tipo A ");
