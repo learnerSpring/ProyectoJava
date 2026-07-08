@@ -333,7 +333,7 @@ public class gui_Visualiza_Datos extends javax.swing.JFrame {
     public Connection obtiene_conexion(){
         Connection con= null;
         try {
-            String url = "jdbc:MySQL://localhost:3306/sacramentos";         //db is the name of the database
+            String url = "jdbc:MySQL://localhost:3306/sacramentos";        
             String user = "";
             String password = "";
             Class.forName("com.mysql.cj.jdbc.Driver");
