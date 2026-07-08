@@ -53,7 +53,7 @@ public class gui_Consulta extends javax.swing.JFrame {
         Connection con= null;
         try {
             String url = "jdbc:MySQL://localhost:3306/sacramentos";         //db is the name of the database
-            String user = "root";
+            String user = "";
             String password = "";
             Class.forName("com.mysql.cj.jdbc.Driver");
             //System.out.println("error tipo A ");
@@ -219,18 +219,15 @@ public class gui_Consulta extends javax.swing.JFrame {
          conn = obtiene_conexion();
          Map<String, Object> map = new HashMap<String, Object>();
          map.put("P_Nombre", tf_nombre.getText()  );
-//         map.put("P_Nombre_Papa", tf_nombre_papa.getText()  );
-//         map.put("P_Nombre_Mama", tf_nombre_mama.getText()  );
          
-         //lee_Propiedades();
          map.put("P_Autoridad", p_autoridad);
          map.put("P_Nombre_Autoridad", p_nombre_autoridad);         
          
          System.out.println("paso 1" );
          String sep = System.getProperty("file.separator");
-         //String ruta = "c:"+sep+"Users"+sep+ "pnsde"+sep+ "JaspersoftWorkspace"+sep+"MyReports"+sep+"simple.jasper";
+
          String ruta = "c:\\Users\\pnsde\\JaspersoftWorkspace\\MyReports\\PRODUCCION\\reporte.jasper";
-         //sruta = ruta.replace("\\", "/");
+
          
          JasperReport jr = null;
          jr = (JasperReport) JRLoader.loadObjectFromFile(ruta);
