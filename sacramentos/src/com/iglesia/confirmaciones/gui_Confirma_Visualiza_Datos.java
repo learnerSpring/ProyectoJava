@@ -278,9 +278,9 @@ public class gui_Confirma_Visualiza_Datos extends javax.swing.JFrame {
     
     public Connection obtiene_conexion(){
         Connection con= null;
-        try { // OJO: EN PRODUCCION CAMBIAR url y password
+        try { 
             String url = "jdbc:MySQL://localhost:3306/sacramentos";      
-            String user = "root";
+            String user = "";
             String password = "";
             Class.forName("com.mysql.cj.jdbc.Driver");
             //System.out.println("error tipo A ");
