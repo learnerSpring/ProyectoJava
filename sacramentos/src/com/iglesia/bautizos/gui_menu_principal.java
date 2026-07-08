@@ -201,9 +201,9 @@ public class gui_menu_principal extends javax.swing.JFrame {
     public gui_menu_principal() {
         initComponents();
         gui_menu();
-        //setIconImage( new ImageIcon( getClass().getResource("..\\images\\logo_png.png") ).getImage() );
+        
         setIconImage( Toolkit.getDefaultToolkit().getImage( getClass().getResource("..\\images\\logo_png.png")   )  );
-        // ruta \\
+        
     }
     /*
     @Override
