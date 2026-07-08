@@ -21,7 +21,7 @@ El sistema organiza la información parroquial mediante flujos de trabajo claros
     * **Modificación Dinámica:** Recuperación completa de registros existentes para corregir o actualizar datos en tiempo real.
 
 * **Módulo de Autoridades Eclesiásticas:** Catálogo independiente para administrar el registro de Sacerdotes, Párrocos y Ministros autorizados para oficiar las ceremonias y firmar los certificados (desplegados de forma dinámica en componentes `JComboBox`).
-* **Reportería Automatizada e Impresión:** Generación instantánea de actas, fes de bautismo y certificados eclesiásticos oficiales utilizando **JasperReports**, listos para previsualización e impresión física.
+* **Reportería Automatizada e Impresión:** Generación instantánea reportes utilizando **JasperReports**, listos para previsualización e impresión física.
 
 ---
 
@@ -29,7 +29,7 @@ El sistema organiza la información parroquial mediante flujos de trabajo claros
 
 * **Lenguaje de Programación:** Java SE (Java Standard Edition) con componentes de interfaz gráfica **Java Swing**.
 * **Persistencia de Datos:** **JDBC (Java Database Connectivity)** para transacciones directas, nativas y de alto rendimiento con el motor de base de datos sin sobrecarga de ORMs.
-* **Motor de Base de Datos:** **MySQL**, implementando queries optimizados, conversiones explícitas de tipos (`CAST(... AS UNSIGNED)`).
+* **Motor de Base de Datos:** **MySQL**, implementando queries optimizados.
 * **Motor de Reportes:** **JasperReports / iReport**, para la compilación de archivos `.jrxml` a `.jasper` e inyección de parámetros dinámicos en tiempo de ejecución.
 
 ---
